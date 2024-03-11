@@ -12,10 +12,3 @@
   - name: Show system resources
     debug:
       var: system_resource_print.stdout_lines
-
-  - name: Gather facts
-    community.routeros.facts:
-
-  - name: Show a fact
-    debug:
-      msg: "First IP address: {{ ansible_net_all_ipv4_addresses[0] }}"
