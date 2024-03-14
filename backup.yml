@@ -8,7 +8,7 @@
      # delegate_to: localhost
 
   - name: Select date
-    gather_facts: true
+    #gather_facts: true
     time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
 
