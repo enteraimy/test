@@ -16,7 +16,7 @@
   - name: Gather system resources
     community.routeros.command:
       commands:
-        - /export file="{{ inventory_hostname +  time_info}}"
+        - /export file="{{ inventory_hostname +  {{ time_info }} }}"
     register: system_resource_print
  
   - name: Show system resources
