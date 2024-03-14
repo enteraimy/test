@@ -13,6 +13,7 @@
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
   - set_fact: imy="{{ inventory_hostname + time_info }}"
+  
   - name: Export
     community.routeros.command:
       commands:
@@ -23,6 +24,7 @@
     ansible.netcommon.net_get:
     src: "{{ imy }}.rsc"
     dest: /home/xaw/{{ imy }}.rsc
+    protocol: sftp
  
   - name: Show system resources
     debug:
