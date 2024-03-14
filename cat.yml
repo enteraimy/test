@@ -1,0 +1,12 @@
+- name: RouterOS test with network_cli connection
+  hosts: all
+  gather_facts: false
+  tasks:
+
+  - name: find str
+    shell: cat /home/xaw/awx.yaml
+    register: outtext
+
+  - name: gfgf
+    debug:
+      var: outtext
