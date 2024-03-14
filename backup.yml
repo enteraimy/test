@@ -9,7 +9,8 @@
 
   - name: Select date
     #gather_facts: true
-    time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
+    inf: "jkjkjkj"
+    #time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
 
   - name: Gather system resources
@@ -20,5 +21,5 @@
  
   - name: Show system resources
     debug:
-      var: time_info
+      var: inf
   
