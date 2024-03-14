@@ -10,13 +10,13 @@
   - name: Select date
     #gather_facts: true
     set_fact:  
-      time_info: "{{ ansible_date_time.time }}"
+      time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
 
   - name: Gather system resources
     community.routeros.command:
       commands:
-        - /export file="{{ inventory_hostname +  {{ time_info }} }}"
+        - /export file="{{ inventory_hostname + time_info }}"
     register: system_resource_print
  
   - name: Show system resources
