@@ -12,6 +12,7 @@
     set_fact:  
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
+    
   - set_fact: imy="{{ inventory_hostname + time_info }}"
   
   - name: Export
@@ -22,7 +23,7 @@
 
   - name: Get export in server
     ansible.netcommon.net_get:
-    src: "{{ imy }}.rsc"
+    src: "{{ time_info }}.rsc"
     dest: /home/xaw/{{ imy }}.rsc
     protocol: sftp
  
