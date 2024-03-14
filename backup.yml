@@ -13,11 +13,16 @@
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
 
-  - name: Gather system resources
+  - name: Export
     community.routeros.command:
       commands:
         - /export file="{{ inventory_hostname + time_info }}"
     register: system_resource_print
+
+  - name: Get export in server
+    ansible.netcommon.net_get:
+    src: "{{ inventory_hostname + time_info }}.rsc"
+    dest: /home/xaw/"{{ inventory_hostname + time_info }}".rsc
  
   - name: Show system resources
     debug:
