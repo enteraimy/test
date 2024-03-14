@@ -14,14 +14,16 @@
     delegate_to: localhost
 
   - name: Export
+    set_fact:
+      imy: "{{ inventory_hostname + time_info }}"
     community.routeros.command:
       commands:
-        - /export file="{{ inventory_hostname + time_info }}"
-    register: system_resource_print
+        - /export file="{{ imy }}"
+    
 
   - name: Get export in server
     ansible.netcommon.net_get:
-    src: "{{ inventory_hostname + time_info }}.rsc"
+    src: ""{{ imy }}".rsc"
     dest: /home/xaw/"{{ inventory_hostname + time_info }}".rsc
  
   - name: Show system resources
