@@ -16,13 +16,13 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /export file="{{  inventory_hostname + time_info }}"
+        - /export file="{{  imy }}"
     
 
   - name: Get export in server
     ansible.netcommon.net_get:
     src: "{{ imy }}.rsc"
-    dest: /home/xaw/"{{ imy }}.rsc"
+    dest: /home/xaw/{{ imy }}.rsc
  
   - name: Show system resources
     debug:
