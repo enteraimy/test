@@ -6,6 +6,7 @@
   - name: find str
     shell: cat /home/xaw/awx.yaml
     register: outtext
+    delegate_to: localhost
 
   - name: gfgf
     debug:
