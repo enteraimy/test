@@ -12,7 +12,7 @@
     set_fact:  
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
-  - set_fact: imy: "{{ inventory_hostname + time_info }}"
+  - set_fact: imy="{{ inventory_hostname + time_info }}"
   - name: Export
     community.routeros.command:
       commands:
