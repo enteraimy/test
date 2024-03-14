@@ -14,14 +14,14 @@
     delegate_to: localhost
 
   - name: Export
-    set_fact:
-      imy: "{{ inventory_hostname + time_info }}"
     community.routeros.command:
       commands:
-        - /export file="{{ imy }}"
+        - /export file="{{  inventory_hostname + time_info }}"
     
 
   - name: Get export in server
+    set_fact:
+      imy: "{{ inventory_hostname + time_info }}"
     ansible.netcommon.net_get:
     src: "{{ imy + '.rsc' }}"
     dest: /home/xaw/"{{ imy }}".rsc
