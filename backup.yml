@@ -23,9 +23,9 @@
 
   - name: Get export in server
     ansible.netcommon.net_get:
-    protocol: sftp
-    src: /{{imy}}.rsc
-    dest: /home/xaw/{{imy}}.rsc
+      protocol: sftp
+      src: /{{imy}}.rsc
+      dest: /home/xaw/{{imy}}.rsc
     
  
   - name: Show system resources
