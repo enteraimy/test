@@ -4,7 +4,7 @@
   tasks:
 
   - name: find str
-    shell: pwd
+    shell: ls
     register: outtext
     delegate_to: localhost
 
