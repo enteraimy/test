@@ -23,7 +23,7 @@
 
   - name: Get export in server
     ansible.netcommon.net_get:
-    src: {{ imy }}.rsc
+    src: "{{ imy }}"
     dest: /home/xaw/{{ imy }}.rsc
     protocol: sftp
  
