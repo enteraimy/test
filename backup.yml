@@ -10,6 +10,7 @@
   - name: Select date
     gather_facts: true
     time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
+    delegate_to: localhost
 
   - name: Gather system resources
     community.routeros.command:
