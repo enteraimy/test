@@ -1,0 +1,24 @@
+- hosts: all
+  gather_facts: false
+  tasks:
+   # - name: check user_id, data and time
+    #  lineinfile:
+     #  path: "/home/host/logs.txt"
+      # line: "{{ 'By ' +  ansible_facts['user_id'] + ' in ' + ansible_date_time.time + ' ' +  ansible_date_time.date }}"
+     # delegate_to: localhost
+
+  - name: Select date
+    gather_facts: true
+    time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
+
+  - name: Gather system resources
+    community.routeros.command:
+      commands:
+        - /system resource print
+    register: system_resource_print
+
+ - name: Show system resources
+   debug:
+     var: time_info
+   
+  
