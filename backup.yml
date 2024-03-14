@@ -17,9 +17,8 @@
       commands:
         - /system resource print
     register: system_resource_print
-
- - name: Show system resources
-   debug:
-     var: time_info
-   
+ 
+  - name: Show system resources
+    debug:
+      var: time_info
   
