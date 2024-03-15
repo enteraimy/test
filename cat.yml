@@ -3,10 +3,6 @@
   gather_facts: false
   tasks:
 
-  - name: find str
-    shell: touch file.txt
-    delegate_to: localhost
-
   - name: ls
     shell: ls
     register: outtext
