@@ -38,15 +38,15 @@
   #- name: Mkdir
    # shell: mkdir "{{ papka }}"
 
-  - name: ls
-    hosts: localhost
-    shell: ls -p
-    register: out
+  #- name: ls
+   # hosts: localhost
+    #shell: ls -p
+    #register: out
     #deligate_to: localhost
 
-  - name: debug
-    debug:
-      var: out 
+  #- name: debug
+   # debug:
+    #  var: out 
 
   - name: cat
     shell: cat /runner/project/{{imy}}.rsc
@@ -57,12 +57,12 @@
       var: cet.stdout_lines
     
   
-  #- name: Get copy to xaw
-   # ansible.builtin.copy:
-    #  src: /runner/project/{{imy}}.rsc
-     # dest: /home/xaw/{{papka}}/{{imy}}.rsc
-      #owner: xaw
-      #group: xaw
-      #mode: u=rw,g=r,o=r
+  - name: Get copy to xaw
+    ansible.builtin.copy:
+      src: /runner/project/{{imy}}.rsc
+      dest: /home/xaw/{{imy}}.rsc
+      owner: xaw
+      group: xaw
+      mode: u=rw,g=r,o=r
       
   
