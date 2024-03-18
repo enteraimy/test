@@ -53,20 +53,21 @@
     shell: cat /runner/project/{{imy}}.rsc
     register: cet
 
-  - name: debug
+  - name: find
     debug:
-      var: cet.stdout_lines
+      msg: "time is OK"
+    when: cet.stdout.find('set time-zone-autodetect=no time-zone-name=Europe/Moscow') != -1
     
 
-- hosts: server  
-  tasks:
-  - name: Get copy to xaw
-    ansible.builtin.copy:
-      src: /runner/project/{{imy}}.rsc
-      dest: /home/xaw/{{imy}}.rsc
-      owner: xaw
-      group: xaw
-      mode: u=rw,g=r,o=r
+#- hosts: server  
+ # tasks:
+  #- name: Get copy to xaw
+   # ansible.builtin.copy:
+    #  src: /runner/project/{{imy}}.rsc
+    #  dest: /home/xaw/{{imy}}.rsc
+     # owner: xaw
+     # group: xaw
+     # mode: u=rw,g=r,o=r
       
       
   
