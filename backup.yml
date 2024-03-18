@@ -55,8 +55,8 @@
 
   - name: find
     debug:
-      msg: "time is OK"
-    when: cet.stdout.find('set time-zone-autodetect=no time-zone-name=Europe/Moscow') != -1
+      msg: "NAT IS OK"
+    when: cet.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') != -1
     
 
 #- hosts: server  
