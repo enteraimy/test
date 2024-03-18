@@ -4,7 +4,7 @@
   tasks:
 
   - name: ls
-    shell: ls
+    shell: pwd
     register: outtext
     delegate_to: localhost
 
