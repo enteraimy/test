@@ -1,11 +1,11 @@
 - hosts: server
-  #gather_facts: false
+  gather_facts: false
   tasks:
 
-  - name: Check
-    shell: pwd
-    register: out
-  
-  - name: Out
-    debug:
-      var: out
+  - name: cope
+    copy:
+      src: ~/collections
+      dest: /home/xaw/
+      owner: xaw
+      group: xaw        
+      mode: 0644
