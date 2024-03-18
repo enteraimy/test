@@ -24,8 +24,8 @@
     community.routeros.command:
       commands:
         - /export file="{{  papka }}"  
-    delegate_to: "{{ item }}"
-    loop: "{{ groups['mikrotiks'] }}"    
+    delegate_to: "{{ groups['mikrotiks'] }}"
+        
     
 
   - name: Get export in server
@@ -34,6 +34,7 @@
       src: /{{papka}}.rsc
       dest: /runner/project/{{imy}}.rsc  
       ignore_errors: true
+    delegate_to: "{{ groups['mikrotiks'] }}"  
   
   
   
