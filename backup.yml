@@ -13,16 +13,19 @@
     delegate_to: localhost
 
   - set_fact: papka="{{ inventory_hostname }}"
-    delegate_to: mikrotiks
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"
     
   - set_fact: imy="{{ inventory_hostname + time_info }}"
-    delegate_to: mikrotiks
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"
   
   - name: Export
     community.routeros.command:
       commands:
         - /export file="{{  imy }}"
-    delegate_to: mikrotiks    
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"    
     
 
   - name: Get export in server
@@ -34,7 +37,7 @@
 
   - name: Mkdir
     shell: mkdir "{{ papka }}"
-    delegate_to: server
+    delegate_to: 192.168.1.73
   
   - name: Get copy to xaw
     ansible.builtin.copy:
