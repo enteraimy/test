@@ -5,14 +5,7 @@
 
 
     
-  - name: ls
-    shell: ls /runner -p
-    register: outtext
-    delegate_to: localhost
-
-  - name: gfgf
-    debug:
-      var: outtext
+ 
 
   - name: toucch
     shell: touch /runner/file.txt
@@ -22,3 +15,12 @@
   - name: gfgf
     debug:
       var: text    
+
+  - name: ls
+    shell: ls /runner -p
+    register: outtext
+    delegate_to: localhost
+
+  - name: gfgf
+    debug:
+      var: outtext     
