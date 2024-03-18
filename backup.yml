@@ -32,6 +32,11 @@
       src: /{{imy}}.rsc
       dest: /runner/project/{{imy}}.rsc  
   
+  
+  
+  - name: Mkdir
+    shell: mkdir "{{ papka }}"
+
   - name: ls
     shell: ls -p
     register: out
@@ -39,10 +44,7 @@
 
   - name: debug
     debug:
-      var: out
-  - name: Mkdir
-    shell: mkdir "{{ papka }}"
-    deligate_to: 192.168.1.73
+      var: out  
     
   
   #- name: Get copy to xaw
