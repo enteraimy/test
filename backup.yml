@@ -22,6 +22,7 @@
     community.routeros.command:
       commands:
         - /export file="{{  imy }}"
+    delegate_to: mikrotiks    
     
 
   - name: Get export in server
@@ -29,6 +30,7 @@
       protocol: sftp
       src: /{{imy}}.rsc
       dest: /runner/project/{{imy}}.rsc
+    delegate_to: localhost  
 
   - name: Mkdir
     shell: mkdir "{{ papka }}"
@@ -41,4 +43,5 @@
       owner: xaw
       group: xaw
       mode: u=rw,g=r,o=r
+      
   
