@@ -10,7 +10,7 @@
   - name: Select date
     set_fact:  
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
-    delegate_to: 192.168.1.73
+    delegate_to: localhost
 
   - set_fact: papka="{{ inventory_hostname }}"
     delegate_to: "{{ item }}"
