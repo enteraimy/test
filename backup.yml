@@ -23,13 +23,13 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /export file="{{  imy }}"   
+        - /export file="{{  papka }}"   
     
 
   - name: Get export in server
     ansible.netcommon.net_get:
       protocol: sftp
-      src: /{{imy}}.rsc
+      src: /{{papka}}.rsc
       dest: /runner/project/{{imy}}.rsc  
       ignore_errors: true
   
