@@ -8,12 +8,15 @@
      # delegate_to: localhost
 
   - name: Select date
-    #gather_facts: true
     set_fact:  
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
     delegate_to: localhost
+
+  - set_fact: papka="{{ inventory_hostname }}"
+    delegate_to: mikrotiks
     
   - set_fact: imy="{{ inventory_hostname + time_info }}"
+    delegate_to: mikrotiks
   
   - name: Export
     community.routeros.command:
@@ -25,10 +28,17 @@
     ansible.netcommon.net_get:
       protocol: sftp
       src: /{{imy}}.rsc
-      dest: /home/xaw/{{imy}}.rsc
-    
- 
-  - name: Show system resources
-    debug:
-      var: time_info
+      dest: /runner/project/{{imy}}.rsc
+
+  - name: Mkdir
+    shell: mkdir "{{ papka }}"
+    delegate_to: server
+  
+  - name: Get copy to xaw
+    ansible.builtin.copy:
+      src: /runner/project/{{imy}}.rsc
+      dest: /home/xaw/{{papka}}/{{imy}}.rsc
+      owner: xaw
+      group: xaw
+      mode: u=rw,g=r,o=r
   
