@@ -1,4 +1,4 @@
-- hosts: mikrotiks
+- hosts: all
   #gather_facts: false
   tasks:
    # - name: check user_id, data and time {{ inventory_hostname }}
