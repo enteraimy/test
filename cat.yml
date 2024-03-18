@@ -1,20 +1,7 @@
 - name: RouterOS test with network_cli connection
   hosts: mikrotiks
   gather_facts: false
-  tasks:
-
-
-    
- 
-
-  - name: toucch
-    shell: touch /runner/file.txt
-    register: text
-    delegate_to: localhost
-
-  - name: gfgf
-    debug:
-      var: text    
+  tasks: 
 
   - name: ls
     shell: ls /runner -p
