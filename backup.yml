@@ -44,15 +44,23 @@
 
   - name: debug
     debug:
-      var: out  
+      var: out 
+
+  - name: cat
+    shell: cat /runner/project/{{imy}}.rsc
+    register: cet
+
+  - name: debug
+    debug:
+      var: cet.stdout_lines
     
   
-  - name: Get copy to xaw
-    ansible.builtin.copy:
-      src: /runner/project/{{imy}}.rsc
-      dest: /home/xaw/{{papka}}/{{imy}}.rsc
-      owner: xaw
-      group: xaw
-      mode: u=rw,g=r,o=r
+  #- name: Get copy to xaw
+   # ansible.builtin.copy:
+    #  src: /runner/project/{{imy}}.rsc
+     # dest: /home/xaw/{{papka}}/{{imy}}.rsc
+      #owner: xaw
+      #group: xaw
+      #mode: u=rw,g=r,o=r
       
   
