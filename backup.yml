@@ -30,8 +30,7 @@
     ansible.netcommon.net_get:
       protocol: sftp
       src: /{{imy}}.rsc
-      dest: /runner/project/{{imy}}.rsc
-    delegate_to: localhost  
+      dest: /runner/project/{{imy}}.rsc  
 
   - name: Mkdir
     shell: mkdir "{{ papka }}"
