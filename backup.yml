@@ -35,11 +35,11 @@
   - name: ls
     shell: ls -p
     register: out
-    deligate_to: localhost
+    #deligate_to: localhost
 
   - name: debug
     debug:
-    var: out
+      var: out
   #- name: Mkdir
    # shell: mkdir "{{ papka }}"
     
