@@ -31,17 +31,25 @@
       protocol: sftp
       src: /{{imy}}.rsc
       dest: /runner/project/{{imy}}.rsc  
+  
+  - name: ls
+    shell: ls -p
+    register: out
+    deligate_to: localhost
 
-  - name: Mkdir
-    shell: mkdir "{{ papka }}"
+  - name: debug
+    debug:
+    var: out
+  #- name: Mkdir
+   # shell: mkdir "{{ papka }}"
     
   
-  - name: Get copy to xaw
-    ansible.builtin.copy:
-      src: /runner/project/{{imy}}.rsc
-      dest: /home/xaw/{{papka}}/{{imy}}.rsc
-      owner: xaw
-      group: xaw
-      mode: u=rw,g=r,o=r
+  #- name: Get copy to xaw
+   # ansible.builtin.copy:
+    #  src: /runner/project/{{imy}}.rsc
+     # dest: /home/xaw/{{papka}}/{{imy}}.rsc
+      #owner: xaw
+      #group: xaw
+      #mode: u=rw,g=r,o=r
       
   
