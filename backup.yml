@@ -23,9 +23,7 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /export file="{{  imy }}"
-    delegate_to: "{{ item }}"
-    loop: "{{ groups['mikrotiks'] }}"    
+        - /export file="{{  imy }}"   
     
 
   - name: Get export in server
