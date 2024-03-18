@@ -1,5 +1,4 @@
-- hosts: all
-  #gather_facts: false
+- hosts: mikrotiks  
   tasks:
    # - name: check user_id, data and time {{ inventory_hostname }}
     #  lineinfile:
@@ -20,8 +19,7 @@
     delegate_to: "{{ item }}"
     loop: "{{ groups['mikrotiks'] }}"
 
-- hosts: mikrotiks  
-  tasks:
+
   - name: Export
     community.routeros.command:
       commands:
@@ -29,7 +27,6 @@
     
 
   - name: Get export in server
-    hosts: mikrotiks
     ansible.netcommon.net_get:
       protocol: sftp
       src: /{{papka}}.rsc
@@ -60,7 +57,9 @@
     debug:
       var: cet.stdout_lines
     
-  
+
+- hosts: server  
+  tasks:
   - name: Get copy to xaw
     ansible.builtin.copy:
       src: /runner/project/{{imy}}.rsc
