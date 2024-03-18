@@ -23,7 +23,9 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /export file="{{  papka }}"   
+        - /export file="{{  papka }}"  
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"    
     
 
   - name: Get export in server
@@ -64,5 +66,6 @@
       owner: xaw
       group: xaw
       mode: u=rw,g=r,o=r
+    deligate_to: localhost   
       
   
