@@ -19,9 +19,10 @@
   - set_fact: imy="{{ inventory_hostname + time_info }}"
     delegate_to: "{{ item }}"
     loop: "{{ groups['mikrotiks'] }}"
-  
+
+- hosts: mikrotiks  
+  tasks:
   - name: Export
-    hosts: mikrotiks
     community.routeros.command:
       commands:
         - /export file="{{  papka }}"         
