@@ -1,4 +1,4 @@
-- hosts: mikrotiks
+- hosts: all
   #gather_facts: false
   tasks:
    # - name: check user_id, data and time {{ inventory_hostname }}
@@ -10,7 +10,7 @@
   - name: Select date
     set_fact:  
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
-    delegate_to: localhost
+    delegate_to: 192.168.1.73
 
   - set_fact: papka="{{ inventory_hostname }}"
     delegate_to: "{{ item }}"
@@ -40,8 +40,9 @@
   - name: debug
     debug:
       var: out
-  #- name: Mkdir
-   # shell: mkdir "{{ papka }}"
+  - name: Mkdir
+    shell: mkdir "{{ papka }}"
+    deligate_to: 192.168.1.73
     
   
   #- name: Get copy to xaw
