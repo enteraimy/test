@@ -21,19 +21,20 @@
     loop: "{{ groups['mikrotiks'] }}"
   
   - name: Export
+    hosts: mikrotiks
     community.routeros.command:
       commands:
-        - /export file="{{  papka }}"  
-    delegate_to: groups['mikrotiks']        
+        - /export file="{{  papka }}"         
     
 
   - name: Get export in server
+    hosts: mikrotiks
     ansible.netcommon.net_get:
       protocol: sftp
       src: /{{papka}}.rsc
       dest: /runner/project/{{imy}}.rsc  
-      ignore_errors: true
-    delegate_to: "{{ groups['mikrotiks'] }}"  
+      ignore_errors: true  
+      
   
   
   
