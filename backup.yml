@@ -39,6 +39,7 @@
    # shell: mkdir "{{ papka }}"
 
   - name: ls
+    host: localhost
     shell: ls -p
     register: out
     #deligate_to: localhost
