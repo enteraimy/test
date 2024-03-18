@@ -4,7 +4,7 @@
 
   - name: cope
     copy:
-      src: ~/collections
+      src: /runner/project/collections
       dest: /home/xaw/
       owner: xaw
       group: xaw        
