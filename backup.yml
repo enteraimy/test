@@ -34,8 +34,8 @@
   
   
   
-  - name: Mkdir
-    shell: mkdir "{{ papka }}"
+  #- name: Mkdir
+   # shell: mkdir "{{ papka }}"
 
   - name: ls
     shell: ls -p
@@ -47,12 +47,12 @@
       var: out  
     
   
-  #- name: Get copy to xaw
-   # ansible.builtin.copy:
-    #  src: /runner/project/{{imy}}.rsc
-     # dest: /home/xaw/{{papka}}/{{imy}}.rsc
-      #owner: xaw
-      #group: xaw
-      #mode: u=rw,g=r,o=r
+  - name: Get copy to xaw
+    ansible.builtin.copy:
+      src: /runner/project/{{imy}}.rsc
+      dest: /home/xaw/{{papka}}/{{imy}}.rsc
+      owner: xaw
+      group: xaw
+      mode: u=rw,g=r,o=r
       
   
