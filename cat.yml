@@ -3,6 +3,8 @@
   gather_facts: false
   tasks:
 
+
+    
   - name: ls
     shell: ls /runner -p
     register: outtext
@@ -11,3 +13,12 @@
   - name: gfgf
     debug:
       var: outtext
+
+  - name: toucch
+    shell: touch /runner/file.txt
+    register: text
+    delegate_to: localhost
+
+  - name: gfgf
+    debug:
+      var: text    
