@@ -24,8 +24,7 @@
     community.routeros.command:
       commands:
         - /export file="{{  papka }}"  
-    delegate_to: "{{ groups['mikrotiks'] }}"
-        
+    delegate_to: groups['mikrotiks']        
     
 
   - name: Get export in server
