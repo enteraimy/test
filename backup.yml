@@ -31,6 +31,7 @@
       protocol: sftp
       src: /{{imy}}.rsc
       dest: /runner/project/{{imy}}.rsc  
+      ignore_errors: true
   
   
   
