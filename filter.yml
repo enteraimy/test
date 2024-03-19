@@ -2,17 +2,21 @@
   gather_facts: false
   tasks:
 
-  - name: Cat
-    shell: cat /runner/project/config.rsc
+  - name: Export
+    community.routeros.command:
+      commands:
+        - /ip firewall/filter/print proplist=comment where comment=del
     register: firewall
-  
+    
   - set_fact:
       numbers_mas: "{{ firewall.stdout | regex_findall('\\d+') }}"
-    delegate_to: localhost
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"
     
   - set_fact:
       numbers: "{{ numbers_mas | join(',') }}"
-    delegate_to: localhost  
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"  
 
   - name: Out
     debug:
@@ -21,5 +25,10 @@
   - name: Out
     debug:
       var: firewall.stdout
+
+  - name: Remove
+    community.routeros.command:
+      commands:
+        - /ip firewall/filter/remove numbers="{{ numbers }}"
   
     
