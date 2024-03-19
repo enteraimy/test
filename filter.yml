@@ -12,6 +12,6 @@
 
   - name: Out
     debug:
-    var: numbers
+      var: numbers
   
     
