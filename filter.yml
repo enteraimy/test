@@ -8,7 +8,7 @@
   
   - set_fact:
       numbers: "{{ firewall | regex_search('\\d+') }}"
-    deligate_to: localhost
+    delegate_to: localhost
 
   - name: Out
     debug:
