@@ -1,0 +1,17 @@
+- hosts: server
+  gather_facts: false
+  tasks:
+
+  - name: Cat
+    shell: cat /runner/project/config.rsc
+    register: firewall
+
+ - set_fact:
+     numbers: "{{ firewall | regex_search('\\d+') }}"
+   deligate_to: localhost
+
+ - name: Out
+   debug:
+   var: numbers
+  
+    
