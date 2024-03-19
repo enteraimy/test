@@ -7,8 +7,12 @@
     register: firewall
   
   - set_fact:
-      numbers: "{{ firewall.stdout | regex_findall('\\d+') }}"
+      numbers_mas: "{{ firewall.stdout | regex_findall('\\d+') }}"
     delegate_to: localhost
+    
+  - set_fact:
+      numbers: "{{ numbers_mas | join(',') }}"
+    delegate_to: localhost  
 
   - name: Out
     debug:
