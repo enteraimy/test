@@ -5,7 +5,7 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /ip firewall/filter/print proplist=comment where comment=del
+        - /ip firewall/filter/print proplist=comment
     register: firewall
     
   - set_fact:
