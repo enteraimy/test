@@ -7,11 +7,15 @@
     register: firewall
   
   - set_fact:
-      numbers: "{{ firewall | regex_search('\\d+') }}"
+      numbers: "{{ firewall.stdout | regex_search('\\d+') }}"
     delegate_to: localhost
 
   - name: Out
     debug:
       var: numbers
+
+  - name: Out
+    debug:
+      var: firewall.stdout
   
     
