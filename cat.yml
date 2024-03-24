@@ -4,7 +4,7 @@
   tasks:
   
   - name: get data
-    shell: "date +%Y-%m-%d%H-%M-%S"
+    shell: "date +%Y-%m-%d.%H:%M:%S"
     register: dt
   - name: Print data
     ansible.builtin.debug:
