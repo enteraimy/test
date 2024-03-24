@@ -44,6 +44,12 @@
     shell: mkdir /runner/project/backups
   - name: dir of hosts
     shell: mkdir /runner/project/backups/{papka}
+  - name: ls
+    shell: ls -p /runner/project/backups/
+    register: out
+  - name: debug
+    debug:
+      var: out
 
   - name: Get export in server
     ansible.netcommon.net_get:
