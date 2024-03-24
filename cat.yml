@@ -1,21 +1,23 @@
 #- name: RouterOS test with network_cli connection
-- hosts: all  
+- hosts: server 
   gather_facts: false
   tasks:
-
-  - name: Set timezone to Asia/Tokyo
-    community.general.timezone:
-      name: Europe/Moscow
-    delegate_to: localhost
+  
   - name: get data
     shell: "date +%Y-%m-%d.%H:%M:%S"
     register: dt
   - name: Print data
     ansible.builtin.debug:
       var: dt.stdout     
-  - set_fact: papka="{{ inventory_hostname }}"
-  - name: Print papka
+  - set_fact: tm="{{ dt.stdout }}"
+    delegate_to: localhost
+
+- hosts: mikrotiks
+  gather_facts: false
+  tasks:   
+  - name: Print time
     ansible.builtin.debug:
-      var: papka  
+      var: tm 
+    delegate_to: localhost  
 
     
