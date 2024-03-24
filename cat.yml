@@ -31,7 +31,7 @@
     delegate_to: "{{ item }}"
     loop: "{{ groups['mikrotiks'] }}"
     
-  - set_fact: imy="{{ inventory_hostname + "_" time_info.stdout }}"
+  - set_fact: imy="{{ inventory_hostname + "_" + time_info.stdout }}"
     delegate_to: "{{ item }}"
     loop: "{{ groups['mikrotiks'] }}"
 
