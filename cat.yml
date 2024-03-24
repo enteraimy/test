@@ -110,9 +110,9 @@
       commands:
         - /ip firewall filter add action=accept chain=input dst-port=1194 protocol=tcp
   - name: Настройка доступа к локальной сети
-     community.routeros.command:
-       commands:
-         - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat    
+    community.routeros.command:
+      commands:
+        - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat    
       
 - hosts: server
   gather_facts: false
