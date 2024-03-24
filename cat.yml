@@ -48,8 +48,8 @@
   - name: Get export in server
     ansible.netcommon.net_get:
       protocol: sftp
-      src: /{{papka + .old}}.rsc
-      dest: /runner/project/backups/{{papka}}/{{imy + .old}}.rsc  
+      src: /{{papka + ".old"}}.rsc
+      dest: /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc  
       ignore_errors: true  
       
 - hosts: server
