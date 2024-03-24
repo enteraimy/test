@@ -33,7 +33,6 @@
     register: dt
   - name: Print data
     ansible.builtin.debug:
-      var: dt   
-    delegate_to: localhost   
+      var: dt     
 
     
