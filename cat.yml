@@ -57,6 +57,62 @@
       src: /{{papka + ".old"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc  
       ignore_errors: true  
+
+  - name: Настройка времени на Московское
+    community.routeros.command:
+      commands:
+        - /system clock set time-zone-autodetect=no time-zone-name=Europe/Moscow
+  - name: Настройка ntp сервера
+    community.routeros.command:
+      commands:
+        - /system ntp client set enabled=yes primary-ntp=ntp0.ntp-servers.net secondary-ntp=ntp1.ntp-servers.net
+  - name: Создание корневого сертификата
+    community.routeros.command:
+      commands:
+        - /certificate add name=ca country="RU" state="31" locality="KRD" organization="Interface LLC" unit="IT" common-name="ca" key-size=2048 days-valid=3650 key-usage=crl-sign,key-cert-sign
+        - /certificate sign ca ca-crl-host=127.0.0.1
+  - name: Создание сертификата для роутера
+    community.routeros.command:
+      commands:
+        - /certificate add name=ovpn-server country="RU" state="31" locality="KRD" organization="Interface LLC" unit="IT" common-name="ovpn-server" key-size=2048 days-valid=3650 key-usage=digital-signature,key-encipherment,tls-server
+        - /certificate sign ovpn-server ca="ca"
+  - name: Создание клиентских сертификатов
+    community.routeros.command:
+      commands:
+        - /certificate add name=client country="RU" state="31" locality="KRD" organization="Interface LLC" unit="IT" common-name="client" key-size=2048 days-valid=365 key-usage=tls-client
+        - /certificate sign client ca="ca"
+  - name: Експорт закрытого ключа и сертификата клиента, а также корневого сертификата
+    community.routeros.command:
+      commands:
+        - /certificate export-certificate client type=pkcs12 export-passphrase=12345678
+  - name: Создание пула для выдачи OpenVPN клиентам
+    community.routeros.command:
+      commands:
+        - /ip pool add name=ovpn_pool0 ranges=10.8.8.100-10.8.8.199
+  - name: Создание профиля ovpn
+    community.routeros.command:
+      commands:
+        - /ppp profile add local-address=10.8.8.1 name=ovpn remote-address=ovpn_pool0
+  - name: Включение аутентификации по пользователю
+    community.routeros.command:
+      commands:
+        - /ppp aaa set accounting=yes
+  - name: Создание учетных записей клиентов
+    community.routeros.command:
+      commands:
+        - /ppp secret add name=client profile=ovpn service=ovpn
+  - name: Настройка службы OVPN Server
+    community.routeros.command:
+      commands:
+        - /interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256 default-profile=ovpn enabled=yes require-client-certificate=yes
+  - name: Разрешение входящих подключений к OpenVPN серверу
+    community.routeros.command:
+      commands:
+        - /ip firewall filter add action=accept chain=input dst-port=1194 protocol=tcp
+  - name: Настройка доступа к локальной сети
+     community.routeros.command:
+       commands:
+         - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat    
       
 - hosts: server
   gather_facts: false
