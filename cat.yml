@@ -10,7 +10,7 @@
 
   - name: get time from function
     set_fact:  
-      time_func: "{{ now(utc=true,fmt='%Y-%m-%d %H:%M:%S') }}"
+      time_func: "{{ now(utc=true,fmt='%Y-%m-%d %H+3:%M:%S') }}"
     delegate_to: localhost
     
   - name: time from facts
