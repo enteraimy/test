@@ -22,11 +22,13 @@
   gather_facts: false
   tasks:   
 
-  - set_fact: tm="{{ now(utc=true,fmt='%Y-%m-%d %H:%M:%S') }}"
+  - name: get data
+    shell: cat /runner/project/time
+    register: dt
     delegate_to: localhost
   - name: Print time
     ansible.builtin.debug:
-      var: tm
+      var: dt
     delegate_to: localhost  
 
     
