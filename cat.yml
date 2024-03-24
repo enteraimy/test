@@ -3,10 +3,6 @@
   gather_facts: true
   tasks: 
 
-  - name: Set timezone to Asia/Tokyo
-    community.general.timezone:
-      name: Europe/Moscow
-    delegate_to: localhost 
   - name: get time from facts
     set_fact:  
       time_info: "{{ ansible_date_time.time }}"
@@ -14,7 +10,7 @@
 
   - name: get time from function
     set_fact:  
-      time_func: "{{ now(utc=true,fmt='%Y-%m-%d %H+3:%M:%S') }}"
+      time_func: "{{ now(utc=true,fmt='%Y-%m-%d %H:%M:%S') }}"
     delegate_to: localhost
     
   - name: time from facts
@@ -29,3 +25,13 @@
     ansible.builtin.debug:
       var: ansible_facts   
     delegate_to: localhost  
+
+  - name: get data
+    shell: date
+    register: dt
+  - name: Print data
+    ansible.builtin.debug:
+      var: dt   
+    delegate_to: localhost   
+
+    
