@@ -27,8 +27,8 @@
     register: dt
     delegate_to: localhost
   - name: Print time
-    ansible.builtin.debug:
-      var: dt
+    debug:
+      var: dt.stdout
     delegate_to: localhost  
 
     
