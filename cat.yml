@@ -25,7 +25,9 @@
     ansible.builtin.debug:
       var: ansible_facts   
     delegate_to: localhost  
-
+    
+- hosts: server
+  tasks:
   - name: get data
     shell: date
     register: dt
