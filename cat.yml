@@ -8,5 +8,9 @@
   - name: Print data
     ansible.builtin.debug:
       var: dt.stdout     
+  - set_fact: papka="{{ inventory_hostname }}"
+  - name: Print papka
+    ansible.builtin.debug:
+      var: papka  
 
     
