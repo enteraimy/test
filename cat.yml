@@ -1,23 +1,13 @@
 #- name: RouterOS test with network_cli connection
-- hosts: server 
-  gather_facts: false
-  tasks:
-  
-  - name: get data
-    shell: "date +%Y-%m-%d.%H:%M:%S"
-    register: dt
-  - name: Print data
-    ansible.builtin.debug:
-      var: dt.stdout     
-  - set_fact: tm="{{ dt.stdout }}"
-    delegate_to: localhost
-
 - hosts: mikrotiks
   gather_facts: false
   tasks:   
+
+  - set_fact: tm="{{ now(utc=true,fmt='%Y-%m-%d %H:%M:%S') }}"
+    delegate_to: localhost
   - name: Print time
     ansible.builtin.debug:
-      var: tm 
+      var: tm[0:10] 
     delegate_to: localhost  
 
     
