@@ -1,7 +1,8 @@
-- name: RouterOS test with network_cli connection
+#- name: RouterOS test with network_cli connection
 - hosts: server  
   gather_facts: false
   tasks:
+  
   - name: get data
     shell: "date +%Y-%m-%d%H-%M-%S"
     register: dt
