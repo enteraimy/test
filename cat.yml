@@ -14,7 +14,7 @@
   - name: Write date
     lineinfile:
       path: "/runner/project/time"
-      line: "{{ dt }}"
+      line: "{{ dt.stdout }}"
       insertbefore: BOF
     delegate_to: localhost       
     
