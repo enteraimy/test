@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: mikrotiks
   gather_facts: false
   tasks:
 
@@ -29,7 +29,7 @@
   - name: Remove
     community.routeros.command:
       commands:
-        - /ip firewall/filter/remove numbers=1
+        - /system clock set time-zone-autodetect=no time-zone-name=Europe/Moscow
     register: out
     
   - name: Out
