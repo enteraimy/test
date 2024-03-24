@@ -20,3 +20,8 @@
   - name: time from function
     debug:
       var: time_func  
+      
+  - name: Print all available facts
+    ansible.builtin.debug:
+      var: ansible_facts   
+    delegate_to: localhost  
