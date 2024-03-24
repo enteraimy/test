@@ -1,13 +1,22 @@
 - name: RouterOS test with network_cli connection
   hosts: mikrotiks
-  gather_facts: false
+  gather_facts: true
   tasks: 
 
-  - name: ls
-    shell: ls /runner -p
-    register: outtext
+  - name: get time from facts
+    set_fact:  
+      time_info: "{{ ansible_date_time.time }}"
     delegate_to: localhost
 
-  - name: gfgf
+  - name: get time from function
+    set_fact:  
+      time_func: "{{ now(utc=true,fmt='%Y-%m-%d %H:%M:%S') }}"
+    delegate_to: localhost
+    
+  - name: time from facts
     debug:
-      var: outtext     
+      var: time_info     
+      
+  - name: time from function
+    debug:
+      var: time_func  
