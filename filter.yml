@@ -29,6 +29,11 @@
   - name: Remove
     community.routeros.command:
       commands:
-        - /ip firewall/filter/remove numbers="{{ numbers }}"
+        - /ip firewall/filter/remove numbers=1
+    register: out
+    
+  - name: Out
+    debug:
+      var: out.stdout  
   
     
