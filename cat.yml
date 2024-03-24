@@ -6,10 +6,18 @@
   - name: get data
     shell: "date +%Y-%m-%d.%H:%M:%S"
     register: dt
-  - name: Print data
-    ansible.builtin.debug:
-      var: dt.stdout     
-  - set_fact: tmt="{{ dt.stdout }}"
+  - name: Touch to local
+    file:
+      path: "/runner/project/time"
+      state: touch
+    delegate_to: localhost  
+  - name: Write date
+    lineinfile:
+      path: "/runner/project/time"
+      line: "{{ dt }}"
+      insertbefore: BOF
+    delegate_to: localhost       
+    
 - hosts: mikrotiks
   gather_facts: false
   tasks:   
@@ -18,7 +26,7 @@
     delegate_to: localhost
   - name: Print time
     ansible.builtin.debug:
-      var: tmt
+      var: tm
     delegate_to: localhost  
 
     
