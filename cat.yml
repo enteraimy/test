@@ -2,7 +2,11 @@
 - hosts: all  
   gather_facts: false
   tasks:
-  
+
+  - name: Set timezone to Asia/Tokyo
+    community.general.timezone:
+    name: Europe/Moscow
+    delegate_to: localhost
   - name: get data
     shell: "date +%Y-%m-%d.%H:%M:%S"
     register: dt
