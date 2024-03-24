@@ -24,11 +24,44 @@
 
   - name: get data
     shell: cat /runner/project/time
-    register: dt
+    register: time_info
     delegate_to: localhost
-  - name: Print time
-    debug:
-      var: dt.stdout
-    delegate_to: localhost  
+
+  - set_fact: papka="{{ inventory_hostname }}"
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"
+    
+  - set_fact: imy="{{ inventory_hostname + time_info }}"
+    delegate_to: "{{ item }}"
+    loop: "{{ groups['mikrotiks'] }}"
+
+  - name: Export
+    community.routeros.command:
+      commands:
+        - /export file="{{  papka + ".old" }}"   
+
+  - name: dir of backaps
+    shell: mkdir /runner/project/backups
+  - name: dir of hosts
+    shell: mkdir /runner/project/backups/{papka}
+
+  - name: Get export in server
+    ansible.netcommon.net_get:
+      protocol: sftp
+      src: /{{papka + .old}}.rsc
+      dest: /runner/project/backups/{{papka}}/{{imy + .old}}.rsc  
+      ignore_errors: true  
+      
+- hosts: server
+  gather_facts: false
+  tasks:
+
+  - name: copy backups to xaw user dir
+    copy:
+      src: /runner/project/backups
+      dest: /home/xaw/
+      owner: xaw
+      group: xaw        
+      mode: 0644    
 
     
