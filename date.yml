@@ -3,18 +3,17 @@
   gather_facts: false
   tasks:
   
-  - name: get data
+ - name: get data
     shell: "date +%Y-%m-%d.%H:%M:%S"
     register: dt
-  - name: Print data
-    ansible.builtin.debug:
-      var: dt.stdout     
-  - set_fact: tm="{{ dt.stdout }}"
+  - name: Touch to local
+    file:
+      path: "/runner/project/time"
+      state: touch
+    delegate_to: localhost  
+  - name: Write date
+    lineinfile:
+      path: "/runner/project/time"
+      line: "{{ dt.stdout }}"
+      insertbefore: BOF
     delegate_to: localhost
-
-- hosts: mikrotiks
-  gather_facts: false
-  tasks:
-  - name: Apply tags to tasks within included file when using free-form
-    ansible.builtin.include_tasks:
-      file: backup.yml
