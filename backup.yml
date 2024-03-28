@@ -1,7 +1,3 @@
-- hosts: mikrotiks  
-  gather_facts: false
-  tasks:
-  
   - name: Get date
     debug:
       msg: "include" 
