@@ -1,11 +1,6 @@
 - hosts: mikrotiks  
   tasks:
-   # - name: check user_id, data and time {{ inventory_hostname }}
-    #  lineinfile:
-     #  path: "/home/host/logs.txt"
-      # line: "{{ 'By ' +  ansible_facts['user_id'] + ' in ' + ansible_date_time.time + ' ' +  ansible_date_time.date }}"
-     # delegate_to: localhost
-
+  
   - name: Select date
     set_fact:  
       time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
@@ -19,55 +14,17 @@
     delegate_to: "{{ item }}"
     loop: "{{ groups['mikrotiks'] }}"
 
-
   - name: Export
     community.routeros.command:
       commands:
         - /export file="{{  papka }}"         
     
-
   - name: Get export in server
     ansible.netcommon.net_get:
       protocol: sftp
       src: /{{papka}}.rsc
       dest: /runner/project/{{imy}}.rsc  
       ignore_errors: true  
-      
-  
-  
-  
-  #- name: Mkdir
-   # shell: mkdir "{{ papka }}"
-
-  #- name: ls
-   # hosts: localhost
-    #shell: ls -p
-    #register: out
-    #deligate_to: localhost
-
-  #- name: debug
-   # debug:
-    #  var: out 
-
-  - name: cat
-    shell: cat /runner/project/{{imy}}.rsc
-    register: cet
-
-  - name: find
-    debug:
-      msg: "NAT IS OK"
-    when: cet.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') != -1
-    
-
-#- hosts: server  
- # tasks:
-  #- name: Get copy to xaw
-   # ansible.builtin.copy:
-    #  src: /runner/project/{{imy}}.rsc
-    #  dest: /home/xaw/{{imy}}.rsc
-     # owner: xaw
-     # group: xaw
-     # mode: u=rw,g=r,o=r
       
       
   
