@@ -11,7 +11,7 @@
   tasks:   
   
   - name: Создание бэкапа перед настройкой
-    ansible.builtin.include_tasks: backup.yml  
+    ansible.builtin.include_tasks: backupold.yml  
 
   - name: Настройка времени на Московское
     community.routeros.command:
