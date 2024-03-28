@@ -6,14 +6,14 @@
  - name: get data
     shell: "date +%Y-%m-%d.%H:%M:%S"
     register: dt
-  - name: Touch to local
-    file:
-      path: "/runner/project/time"
-      state: touch
-    delegate_to: localhost  
-  - name: Write date
-    lineinfile:
-      path: "/runner/project/time"
-      line: "{{ dt.stdout }}"
-      insertbefore: BOF
-    delegate_to: localhost
+ - name: Touch to local
+   file:
+     path: "/runner/project/time"
+     state: touch
+   delegate_to: localhost  
+ - name: Write date
+   lineinfile:
+     path: "/runner/project/time"
+     line: "{{ dt.stdout }}"
+     insertbefore: BOF
+   delegate_to: localhost
