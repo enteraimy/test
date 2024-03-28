@@ -12,4 +12,5 @@
     delegate_to: localhost
 
 - name: Apply tags to tasks within included file when using free-form
-  ansible.builtin.include_tasks: backup.yml
+  ansible.builtin.include_tasks:
+    file: backup.yml
