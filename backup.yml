@@ -1,7 +1,0 @@
----
-  - name: Get date
-    debug:
-      msg: "include" 
-      
-      
-  
