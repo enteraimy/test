@@ -1,13 +1,4 @@
 ---
-  - name: get data
-    shell: cat /runner/project/time
-    register: time_info
-    delegate_to: localhost
-
-  - set_fact: papka="{{ inventory_hostname }}"
-    
-  - set_fact: imy="{{ inventory_hostname + "_" + time_info.stdout }}"
-
   - name: Export
     community.routeros.command:
       commands:
