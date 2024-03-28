@@ -11,4 +11,4 @@
   - set_fact: tm="{{ dt.stdout }}"
     delegate_to: localhost
 
-- include: /runner/project/backup.yml dt = "{{ dt.stdout }}"
+- include: /runner/project/backup.yml
