@@ -31,5 +31,13 @@
       dest: /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc  
       ignore_errors: true
       
+  - name: debug
+    shell: ls /runner/project/backups/{{papka}}
+    register: deb
+
+  - name: debug
+    debug:
+      var: deb    
+      
       
   
