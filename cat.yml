@@ -59,7 +59,7 @@
   - name: Настройка службы OVPN Server
     community.routeros.command:
       commands:
-        - /interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256 default-profile=ovpn enabled=yes require-client-certificate=yes
+        - /ppp interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256 default-profile=ovpn enabled=yes require-client-certificate=yes
   - name: Разрешение входящих подключений к OpenVPN серверу
     community.routeros.command:
       commands:
