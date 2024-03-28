@@ -1,30 +1,10 @@
 - hosts: mikrotiks  
+  gather_facts: false
   tasks:
   
-  - name: Select date
-    set_fact:  
-      time_info: "{{ ansible_date_time.time + '.' +  ansible_date_time.date }}"
-    delegate_to: localhost
-
-  - set_fact: papka="{{ inventory_hostname }}"
-    delegate_to: "{{ item }}"
-    loop: "{{ groups['mikrotiks'] }}"
-    
-  - set_fact: imy="{{ inventory_hostname + time_info }}"
-    delegate_to: "{{ item }}"
-    loop: "{{ groups['mikrotiks'] }}"
-
-  - name: Export
-    community.routeros.command:
-      commands:
-        - /export file="{{  papka }}"         
-    
-  - name: Get export in server
-    ansible.netcommon.net_get:
-      protocol: sftp
-      src: /{{papka}}.rsc
-      dest: /runner/project/{{imy}}.rsc  
-      ignore_errors: true  
+  - name: Get date
+    debug:
+      var: dt.stdout 
       
       
   
