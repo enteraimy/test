@@ -11,10 +11,4 @@
   - set_fact: tm="{{ dt.stdout }}"
     delegate_to: localhost
 
-- hosts: mikrotiks 
-  gather_facts: false
-  tasks: 
-
-  - name: Get date
-    debug:
-      msg: "{{ hostvars['192.168.1.73']['dt']['stdout'] | b64decode }}"
+- include: /runner/project/backup.yml dt = "{{ dt.stdout }}"
