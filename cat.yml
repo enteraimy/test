@@ -13,6 +13,19 @@
   - name: Создание бэкапа перед настройкой
     ansible.builtin.include_tasks: backupold.yml  
 
+  - name: get data
+    shell: cat /runner/project/time
+    register: time_info
+    delegate_to: localhost
+
+  - set_fact: papka="{{ inventory_hostname }}"
+    
+  - set_fact: imy="{{ inventory_hostname + "_" + time_info.stdout }}"
+
+  - name: Запись конфигурации в строку
+    shell: cat /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc
+    register: cfg
+
   - name: Настройка времени на Московское
     community.routeros.command:
       commands:
@@ -64,14 +77,22 @@
     community.routeros.command:
       commands:
         - /ip firewall filter add action=accept chain=input dst-port=1194 protocol=tcp
+    when: cfg.stdout.find('add action=accept chain=input dst-port=1194 protocol=tcp') != -1    
   - name: Настройка доступа к локальной сети
     community.routeros.command:
       commands:
-        - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat    
+        - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat  
+    when: cfg.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') != -1    
+
+  - name: Создание бэкапа после настройки
+    ansible.builtin.include_tasks: backupnew.yml  
       
 - hosts: server
   gather_facts: false
   tasks:
+
+  - name: Копирование бэкапов на локальный сервер
+    ansible.builtin.include_tasks: cop.yml
 
   - name: copy backups to xaw user dir
     copy:
