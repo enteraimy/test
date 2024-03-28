@@ -17,4 +17,4 @@
 
   - name: Get date
     debug:
-      var: hostvars['192.168.1.73']['dt']['stdout'] | b64decode
+      msg: "{{ hostvars['192.168.1.73']['dt']['stdout'] | b64decode }}"
