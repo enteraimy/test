@@ -11,4 +11,5 @@
   - set_fact: tm="{{ dt.stdout }}"
     delegate_to: localhost
 
-  - include: backup.yml
+- name: Apply tags to tasks within included file when using free-form
+  include_tasks: backup.yml
