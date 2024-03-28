@@ -1,7 +1,7 @@
 ---
  - name: get data
-    shell: "date +%Y-%m-%d.%H:%M:%S"
-    register: dt
+   shell: "date +%Y-%m-%d.%H:%M:%S"
+   register: dt
  - name: Touch to local
    file:
      path: "/runner/project/time"
