@@ -12,7 +12,7 @@
     shell: cat /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc
     register: cfgold
 
-    - name: Export in variable
+  - name: Export in variable
     community.routeros.command:
       commands:
         - /export
