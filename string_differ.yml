@@ -29,7 +29,7 @@
 
   - name: debug
     debug: 
-      var: cfgold.stdout_lines[1:]
+      var: cfgold
 
   - name: Export in variable
     community.routeros.command:
