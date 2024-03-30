@@ -47,9 +47,7 @@
       var: cfgnew.stdout_lines[0][2:] 
 
   - set_fact: dif="True"
-    when: cfgold.stdout_lines[2:] == cfgnew.stdout_lines[0][2:]
-
-  - set_fact: flag = "{{ dif | default('false') }}"  
+    when: cfgold.stdout_lines[2:] == cfgnew.stdout_lines[0][2:]  
 
   - name: debug
     debug: 
@@ -59,7 +57,7 @@
     community.routeros.command:
       commands:
         - /export file="{{  papka + ".new" }}"  
-    when: flag == true    
+    when: "{{ dif | default('false') }}" == true    
 
   - name: Get export in server
     ansible.netcommon.net_get:
