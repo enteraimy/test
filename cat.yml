@@ -92,14 +92,6 @@
   tasks:
 
   - name: Копирование бэкапов на локальный сервер
-    ansible.builtin.include_tasks: cop.yml
-
-  - name: copy backups to xaw user dir
-    copy:
-      src: /runner/project/backups
-      dest: /home/xaw/
-      owner: xaw
-      group: xaw        
-      mode: 0644    
+    ansible.builtin.include_tasks: cop.yml    
 
     
