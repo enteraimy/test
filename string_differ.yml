@@ -34,7 +34,7 @@
   - name: Меняем
     community.routeros.command:
       commands:
-        - /ip pool add name=aboba ranges=11.8.8.100-11.8.8.199    
+        - /ip pool add name=aboba2 ranges=11.8.8.100-11.8.8.199    
 
   - name: Export in variable
     community.routeros.command:
@@ -46,18 +46,20 @@
     debug: 
       var: cfgnew.stdout_lines[0][2:] 
 
-  - set_fact: difer="True"
+  - set_fact: dif="True"
     when: cfgold.stdout_lines[2:] == cfgnew.stdout_lines[0][2:]
+
+  - set_fact: flag = "{{ dif|default('false') }}"  
 
   - name: debug
     debug: 
-      var: difer    
+      var: flag    
 
   - name: Export to file
     community.routeros.command:
       commands:
         - /export file="{{  papka + ".new" }}"  
-    when: difer == true    
+    when: flag == true    
 
   - name: Get export in server
     ansible.netcommon.net_get:
@@ -65,7 +67,7 @@
       src: /{{papka + ".new"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc  
       ignore_errors: true
-    when: difer == true
+    when: flag == true
       
       
   
