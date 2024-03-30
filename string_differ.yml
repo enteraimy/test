@@ -29,13 +29,13 @@
 
   - name: debug
     debug: 
-      var: cfgold
+      var: cfgold.stdout_lines[1:]
 
   - name: Export in variable
     community.routeros.command:
       commands:
         - /export
-    register: cfgnew     
+    register: cfgnew.stdout_lines[1[1:]]     
 
   - name: debug
     debug: 
