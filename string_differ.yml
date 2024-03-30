@@ -29,7 +29,7 @@
 
   - name: debug
     debug: 
-      var: cfgold.stdout_lines[1:]
+      var: cfgold.stdout_lines[2:]
 
   - name: Export in variable
     community.routeros.command:
@@ -39,10 +39,10 @@
 
   - name: debug
     debug: 
-      var: cfgnew.stdout_lines[0][1:] 
+      var: cfgnew.stdout_lines[0][2:] 
 
   - set_fact: difer="True"
-    when: cfgold.stdout_lines[1:] == cfgnew.stdout_lines[0][1:]
+    when: cfgold.stdout_lines[2:] == cfgnew.stdout_lines[0][2:]
 
   - name: Export to file
     community.routeros.command:
