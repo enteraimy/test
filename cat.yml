@@ -82,7 +82,12 @@
     community.routeros.command:
       commands:
         - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat  
-    when: cfg.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') == -1    
+    when: cfg.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') == -1 
+  - name: Тест
+    community.routeros.command:
+      commands:
+        - /ip firewall nat add src-address=12.8.8.0/24 action=masquerade chain=srcnat  
+    when: cfg.stdout.find('add action=masquerade chain=srcnat src-address=12.8.8.0/24') == -1   
 
   - name: Создание бэкапа после настройки
     ansible.builtin.include_tasks: backupnew.yml  
