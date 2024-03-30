@@ -49,7 +49,7 @@
   - set_fact: dif="True"
     when: cfgold.stdout_lines[2:] == cfgnew.stdout_lines[0][2:]
 
-  - set_fact: flag = "{{ dif|default('false') }}"  
+  - set_fact: flag = "{{ dif | default('false') }}"  
 
   - name: debug
     debug: 
