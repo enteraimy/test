@@ -42,7 +42,7 @@
       var: cfgnew.stdout_lines[0][1:] 
 
   - set_fact: difer="True"
-    when: cfgold.stdout_lines[1:] != cfgnew.stdout_lines[1:]
+    when: cfgold.stdout_lines[1:] == cfgnew.stdout_lines[0][1:]
 
   - name: Export to file
     community.routeros.command:
