@@ -30,6 +30,11 @@
   - name: debug
     debug: 
       var: cfgold.stdout_lines[2:]
+      
+  - name: Меняем
+    community.routeros.command:
+      commands:
+        - /ip pool add name=aboba ranges=11.8.8.100-11.8.8.199    
 
   - name: Export in variable
     community.routeros.command:
