@@ -65,7 +65,7 @@
       src: /{{papka + ".new"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc  
       ignore_errors: true
-    when: flag == true
+    when: dif|default('false') == true 
       
       
   
