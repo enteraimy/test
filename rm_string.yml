@@ -13,4 +13,4 @@
   - name: debug
     debug:
       msg: "Different"
-    when: "{{ old.stdout_lines[1:] }}" != "{{ new.stdout_lines[1:] }}"
+    when: old.stdout_lines[1:] != new.stdout_lines[1:]
