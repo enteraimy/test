@@ -16,7 +16,7 @@
     community.routeros.command:
       commands:
         - /export
-      register: cfgnew     
+    register: cfgnew     
 
   - set_fact: difer="True"
     when: cfgold.stdout_lines[1:] != cfgnew.stdout_lines[1:]
