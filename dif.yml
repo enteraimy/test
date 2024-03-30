@@ -1,0 +1,12 @@
+---
+- hosts: server
+  tasks:
+  - name: Сравнение файлов
+    shell: dif -s old.rsc new.rsc
+    register: out
+  - name: Вывод команды
+    debug:
+      var: out.stdout_lines
+  - name: Вывод длины массива
+    debug:
+      var: "{{ out.stdout_lines|length }}"
