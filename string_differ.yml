@@ -44,6 +44,10 @@
   - set_fact: difer="True"
     when: cfgold.stdout_lines[2:] == cfgnew.stdout_lines[0][2:]
 
+  - name: debug
+    debug: 
+      var: difer    
+
   - name: Export to file
     community.routeros.command:
       commands:
