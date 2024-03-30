@@ -52,7 +52,7 @@
     community.routeros.command:
       commands:
         - /export file="{{  papka + ".new" }}"  
-    when: difer == "True"    
+    when: difer == true    
 
   - name: Get export in server
     ansible.netcommon.net_get:
@@ -60,7 +60,7 @@
       src: /{{papka + ".new"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc  
       ignore_errors: true
-    when: difer == "True"
+    when: difer == true
       
       
   
