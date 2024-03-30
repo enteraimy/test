@@ -2,7 +2,7 @@
 - hosts: server
   tasks:
   - name: Сравнение файлов
-    shell: diff -q old.rsc new.rsc
+    shell: ls -p
     register: out
   - name: Вывод команды
     debug:
