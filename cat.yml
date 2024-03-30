@@ -68,7 +68,7 @@
     community.routeros.command:
       commands:
         - /ip firewall filter add action=accept chain=input dst-port=1194 protocol=tcp
-    when: cfg.stdout.find('add action=accept chain=input dst-port=1194 protocol=tcp') == -1    
+    when: cfgold.stdout.find('add action=accept chain=input dst-port=1194 protocol=tcp') == -1    
   - name: Настройка доступа к локальной сети
     community.routeros.command:
       commands:
