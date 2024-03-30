@@ -1,4 +1,4 @@
-- hosts: server
+- hosts: all
   gather_facts: false
   tasks:
 
@@ -9,3 +9,4 @@
       owner: xaw
       group: xaw        
       mode: 0644
+    delegate_to: localhost  
