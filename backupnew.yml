@@ -5,14 +5,14 @@
         - /export
     register: cfgnew     
 
-  - set_fact: difer="True"
-    when: cfgold.stdout_lines[1:] != cfgnew.stdout_lines[1:]
+  - set_fact: dif="True"
+    when: cfgold.stdout_lines[2:] != cfgnew.stdout_lines[0][2:]
 
   - name: Export to file
     community.routeros.command:
       commands:
         - /export file="{{  papka + ".new" }}"  
-    when: difer == "True"    
+    when: dif|default('false') != true    
 
   - name: Get export in server
     ansible.netcommon.net_get:
@@ -20,7 +20,7 @@
       src: /{{papka + ".new"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc  
       ignore_errors: true
-    when: difer == "True"
+    when: when: dif|default('false') != true
       
       
   
