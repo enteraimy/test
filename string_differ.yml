@@ -39,7 +39,7 @@
 
   - name: debug
     debug: 
-      var: cfgnew.stdout_lines 
+      var: cfgnew.stdout_lines[1] 
 
   - set_fact: difer="True"
     when: cfgold.stdout_lines[1:] != cfgnew.stdout_lines[1:]
