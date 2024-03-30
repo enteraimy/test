@@ -1,9 +1,4 @@
 ---
-  - name: get data
-    shell: cat /runner/project/time
-    register: time_info
-    delegate_to: localhost
-
   - name: Export in variable
     community.routeros.command:
       commands:
