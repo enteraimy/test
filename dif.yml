@@ -4,7 +4,7 @@
   - name: Сравнение файлов
     shell: diff old.rsc new.rsc
     register: out
-    failed_when: “wp.rc not in [ 0, 1 ]”
+    failed_when: “out.rc not in [ 0, 1 ]”
   - name: Вывод команды
     debug:
       var: out.stdout_lines
