@@ -8,10 +8,24 @@
     
   - set_fact: imy="{{ inventory_hostname + "_" + time_info.stdout }}"
 
-  - name: Export
+  - name: Запись конфигурации в строку
+    shell: cat /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc
+    register: cfgold
+
+    - name: Export in variable
     community.routeros.command:
       commands:
-        - /export file="{{  papka + ".new" }}"   
+        - /export
+      register: cfgnew     
+
+  - set_fact: difer="True"
+    when: cfgold.stdout_lines[1:] != cfgnew.stdout_lines[1:]
+
+  - name: Export to file
+    community.routeros.command:
+      commands:
+        - /export file="{{  papka + ".new" }}"  
+    when: difer == "True"    
 
   - name: Get export in server
     ansible.netcommon.net_get:
@@ -19,12 +33,7 @@
       src: /{{papka + ".new"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc  
       ignore_errors: true
-
-  - name: Сравнение версий
-    shell: diff -q /runner/project/backups/{{papka}}/{{imy + ".old"}}.rsc /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc
-    register: difference
-
-  - name: 
+    when: difer == "True"
       
       
   
