@@ -1,0 +1,16 @@
+---
+- hosts: server
+  tasks:
+  - name: Cat old
+    shell: cat old.rsc
+    register: old
+  - name: Cat new
+    shell: cat new.rsc
+    register: new  
+  - name: out
+    debug:
+      var: old.stdout_lines[1:]
+  - name: debug
+    debug:
+      msg: "Different"
+    when: "{{ old.stdout_lines[1:] }}" != "{{ new.stdout_lines[1:] }}"
