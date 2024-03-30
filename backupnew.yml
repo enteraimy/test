@@ -12,7 +12,7 @@
     community.routeros.command:
       commands:
         - /export file="{{  papka + ".new" }}"  
-    when: dif|default('false') != true    
+    when: dif|default('false') == true    
 
   - name: Get export in server
     ansible.netcommon.net_get:
@@ -20,7 +20,7 @@
       src: /{{papka + ".new"}}.rsc
       dest: /runner/project/backups/{{papka}}/{{imy + ".new"}}.rsc  
       ignore_errors: true
-    when: dif|default('false') != true
+    when: dif|default('false') == true
       
       
   
