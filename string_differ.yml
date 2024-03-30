@@ -35,11 +35,11 @@
     community.routeros.command:
       commands:
         - /export
-    register: cfgnew.stdout_lines[1[1:]]     
+    register: cfgnew    
 
   - name: debug
     debug: 
-      var: cfgnew  
+      var: cfgnew.stdout_lines[1[1:]]   
 
   - set_fact: difer="True"
     when: cfgold.stdout_lines[1:] != cfgnew.stdout_lines[1:]
