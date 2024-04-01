@@ -3,8 +3,6 @@ collections:
   - name: community.routeros
     source: https://galaxy.ansible.com
   - name: ansible.netcommon
-    source: https://galaxy.ansible.com
-  - name: ansible.netcommon
     source: https://galaxy.ansible.com 
   - name: community.general
     source: https://galaxy.ansible.com   
