@@ -63,7 +63,7 @@
   - name: Настройка службы OVPN Server
     community.routeros.command:
       commands:
-        - /ppp interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256 default-profile=ovpn enabled=yes require-client-certificate=yes
+        - /interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256-cbc default-profile=ovpn enabled=yes require-client-certificate=yes
   - name: Разрешение входящих подключений к OpenVPN серверу
     community.routeros.command:
       commands:
@@ -73,12 +73,7 @@
     community.routeros.command:
       commands:
         - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat  
-    when: cfgold.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') == -1 
-  - name: Тест
-    community.routeros.command:
-      commands:
-        - /ip firewall nat add src-address=12.8.8.0/24 action=masquerade chain=srcnat  
-    when: cfgold.stdout.find('add action=masquerade chain=srcnat src-address=12.8.8.0/24') == -1   
+    when: cfgold.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') == -1    
 
   - name: Создание бэкапа после настройки
     ansible.builtin.include_tasks: backupnew.yml  
