@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: ip a
+    shell: ip a
+    register: out
+  - name: print
+    debug:
+      var: out.stdout_lines
