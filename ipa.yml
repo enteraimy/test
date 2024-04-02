@@ -5,6 +5,7 @@
   - name: ip a
     shell: ip a
     register: out
+    failed_when: "out.rc not in [ 0, 127 ]"
   - name: print
     debug:
       var: out.stdout_lines
