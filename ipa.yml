@@ -4,7 +4,7 @@
   tasks:
 
   - name: ls
-    shell: ls /runner/papka
+    shell: touch /runner/papka/test.yml
     register: out
     #failed_when: "out.rc not in [ 0, 127 ]"
   - name: print
