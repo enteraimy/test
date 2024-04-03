@@ -2,10 +2,10 @@
 - hosts: localhost
   tasks:
 
-  - name: ip a
-    shell: ip a
+  - name: ls
+    shell: ls /runner
     register: out
-    failed_when: "out.rc not in [ 0, 127 ]"
+    #failed_when: "out.rc not in [ 0, 127 ]"
   - name: print
     debug:
       var: out
