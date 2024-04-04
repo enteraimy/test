@@ -1,12 +1,10 @@
-- hosts: all
+- hosts: server
   gather_facts: false
   tasks:
 
-  - name: cope
-    copy:
-      src: /runner/project
-      dest: /home/xaw/
-      owner: xaw
-      group: xaw        
-      mode: 0644
-    delegate_to: localhost  
+  - name: pwd
+    shell: pwd
+    register: out
+  - name: out
+    debug:
+      var: out
