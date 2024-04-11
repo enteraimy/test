@@ -1,0 +1,11 @@
+- hosts: mikrotiks
+  gather_facts: false
+  tasks: 
+
+  - name: Получение версии роутеров
+    ansible.builtin.include_tasks: version.yml
+    
+  - name: Дебаг
+    debug: 
+      msg: version is 7
+    when: version_router.stdout_lines[0][1:].find('7.') != -1  
