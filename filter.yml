@@ -9,7 +9,7 @@
     register: firewall
     
   - set_fact:
-      numbers_mas: "{{ firewall.stdout | regex_findall('\d+') }}"
+      numbers_mas: "{{ firewall.stdout | regex_findall('\\d+') }}"
     
   - set_fact:
       numbers: "{{ numbers_mas | join(',') }}"
