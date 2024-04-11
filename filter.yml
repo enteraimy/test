@@ -5,18 +5,20 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /ip firewall/nat/print proplist=comment where comment=test
+        - /ip firewall/nat/print where comment=ub
     register: firewall
     
   - set_fact:
-      numbers_mas: "{{ firewall.stdout | regex_findall('\\d+') }}"
+      numbers_mas: "{{ firewall.stdout | regex_findall('\d+') }}"
     
   - set_fact:
       numbers: "{{ numbers_mas | join(',') }}"
 
-  - name: Remove
-    community.routeros.command:
-      commands:
-        - /ip firewall/nat/ remove numbers="{{ numbers }}"
-  
+ # - name: Remove
+  #  community.routeros.command:
+   #   commands:
+    #    - /ip firewall/nat/ remove numbers="{{ numbers }}"
+   - name: Вывод
+     debug:
+       var: numbers
     
