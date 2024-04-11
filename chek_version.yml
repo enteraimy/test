@@ -8,4 +8,4 @@
   - name: Дебаг
     debug: 
       msg: version is 7
-    when: version_router.stdout_lines[0][1:].find('7.') != -1  
+    when: "{{ first_num_of_ver }}" == "7"  
