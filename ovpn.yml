@@ -21,10 +21,14 @@
     community.routeros.command:
       commands:
         - /system clock set time-zone-autodetect=no time-zone-name=Europe/Moscow
-  - name: Настройка ntp сервера
+  - name: Настройка ntp сервера для v6
     community.routeros.command:
       commands:
         - /system ntp client set enabled=yes primary-ntp=ntp0.ntp-servers.net secondary-ntp=ntp1.ntp-servers.net
+  - name: Настройка ntp сервера для v7
+    community.routeros.command:
+      commands:
+        - /system ntp client set enabled=yes servers=ntp0.ntp-servers.net,ntp1.ntp-servers.net      
   - name: Создание корневого сертификата
     community.routeros.command:
       commands:
@@ -59,20 +63,24 @@
   - name: Создание учетных записей клиентов
     community.routeros.command:
       commands:
-        - /ppp secret add name=client profile=ovpn service=ovpn
-  - name: Настройка службы OVPN Server
+        - /ppp secret add name=client profile=ovpn password="{{ secret }}" service=ovpn
+  - name: Настройка службы OVPN Server v6
+    community.routeros.command:
+      commands:
+        - /interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256 default-profile=ovpn enabled=yes require-client-certificate=yes      
+  - name: Настройка службы OVPN Server v7
     community.routeros.command:
       commands:
         - /interface ovpn-server server set auth=sha1 certificate=ovpn-server cipher=aes256-cbc default-profile=ovpn enabled=yes require-client-certificate=yes
   - name: Разрешение входящих подключений к OpenVPN серверу
     community.routeros.command:
       commands:
-        - /ip firewall filter add action=accept chain=input dst-port=1194 protocol=tcp
+        - /ip firewall filter add action=accept chain=input dst-port=1194 protocol=tcp comment=ovpn
     when: cfgold.stdout.find('add action=accept chain=input dst-port=1194 protocol=tcp') == -1    
   - name: Настройка доступа к локальной сети
     community.routeros.command:
       commands:
-        - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat  
+        - /ip firewall nat add src-address=10.8.8.0/24 action=masquerade chain=srcnat comment=ovpn 
     when: cfgold.stdout.find('add action=masquerade chain=srcnat src-address=10.8.8.0/24') == -1    
 
   - name: Создание бэкапа после настройки
