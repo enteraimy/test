@@ -15,7 +15,7 @@
       numbers_mas: "{{ firewall.stdout | regex_search('\\d+') }}"
     
   - set_fact:
-      numbers: "{{ numbers_mas | join(',') }}"
+      numbers: "{{ numbers_mas | join('') }}"
 
  # - name: Remove
   #  community.routeros.command:
