@@ -4,3 +4,10 @@
       commands:
         - /system resource print
     register: version_router  
+
+  - set_fact:
+      first_num_of_ver: "{{ version_router.stdout_lines[0][1:] | regex_search('\\d+') }}"  
+
+  - name: Дебаг
+    debug: 
+      var: first_num_of_ver 
