@@ -8,4 +8,4 @@
   - name: Дебаг
     debug: 
       msg: version is 7
-    when: "{{ first_num_of_ver }}" == "7"  
+    when: "{{ first_num_of_ver }}" = "7"  
