@@ -1,0 +1,6 @@
+---
+  - name: Вывод версии
+    community.routeros.command:
+      commands:
+        - /system resource print
+    register: version_router  
