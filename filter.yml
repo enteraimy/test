@@ -5,35 +5,18 @@
   - name: Export
     community.routeros.command:
       commands:
-        - /ip firewall/filter/print proplist=comment
+        - /ip firewall/nat/print proplist=comment where comment=test
     register: firewall
     
   - set_fact:
       numbers_mas: "{{ firewall.stdout | regex_findall('\\d+') }}"
-    delegate_to: "{{ item }}"
-    loop: "{{ groups['mikrotiks'] }}"
     
   - set_fact:
       numbers: "{{ numbers_mas | join(',') }}"
-    delegate_to: "{{ item }}"
-    loop: "{{ groups['mikrotiks'] }}"  
-
-  - name: Out
-    debug:
-      var: numbers
-
-  - name: Out
-    debug:
-      var: firewall.stdout
 
   - name: Remove
     community.routeros.command:
       commands:
-        - /system clock set time-zone-autodetect=no time-zone-name=Europe/Moscow
-    register: out
-    
-  - name: Out
-    debug:
-      var: out.stdout  
+        - /ip firewall/nat/ remove numbers="{{ numbers }}"
   
     
