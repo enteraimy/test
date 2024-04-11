@@ -12,7 +12,7 @@
     shell: cat /runner/project/config.rsc
     register: firewall
   - set_fact:
-      numbers_mas: "{{ firewall.stdout | regex_search('\\d+') }}"
+      numbers_mas: "{{ firewall.stdout | regex_search('\\d+\\b) }}"
     
   - set_fact:
       numbers: "{{ numbers_mas | join('') }}"
