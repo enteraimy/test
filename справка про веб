@@ -1,0 +1,43 @@
+Конфигурация для пода контроллера awx - контейнера, в котором запускаются скрипты для устройств
+Для настройки переходим в Instance Groups
+
+Templates - шаблоны для запуска скриптов (можно указать для каких файлов inventory применяются файлы в репозитории)
+Тут же можно натсроить какие использовать ключи/сертификаты - Credentials
+И какие настройки для пода использовать - Instance Groups
+
+В вкладке Management Jobs находятся задачи по очистке старой базы - записей о выполненных Jobs. По умолчанию они запускаются раз в неделю
+
+Также в awx есть возможность натсройки допольнительных пользователей для входа и так далее
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: awx
+spec:
+  serviceAccountName: default
+  automountServiceAccountToken: false
+  containers:
+    - image: quay.io/ansible/awx-ee:latest
+      name: worker
+      args:
+        - ansible-runner
+        - worker
+        - '--private-data-dir=/runner'
+      dnsPolicy: "None"    
+      dnsConfig:
+        nameservers:
+          - "8.8.8.8"
+          - "192.168.1.70"
+      resources:
+        requests:
+          cpu: 250m
+          memory: 100Mi
+      volumeMounts:
+      - mountPath: /runner/papka
+        name: mystorage
+  volumes:
+  - name: mystorage
+    persistentVolumeClaim:
+      claimName: mystorage
