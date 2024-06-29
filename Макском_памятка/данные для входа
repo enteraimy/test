@@ -1,8 +1,0 @@
-Linux user: xaw
-	password: 123
-
-Awx user: admin
-	password: NVS0gjGvEEnhY939DXIYrQ1IHn1XFo8s
-
-Awx port: 30080
-URL: http://ip-адрес:30080
